@@ -9,6 +9,9 @@ The check is based on Ariadne Conill's [patch](https://lore.kernel.org/all/20220
 ## How to build
 
 ```
+# On Ubuntu
+$ sudo apt-get install libc6-dev-i386 libbpf0 libbpf-dev
+
 # On Fedora 35
 $ sudo dnf install clang bpftool libbpf-devel glibc-devel.i686 glibc-devel.x86_64
 
