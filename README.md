@@ -19,9 +19,9 @@ $ make
 
 Run:
 ```
-$ sudo make install
+$ sudo make DESTDIR=/usr install
 # will execute following commands
-# sudo cp src/load_check_argc0_lsm /usr/local/bin
+# sudo cp src/load_check_argc0_lsm /usr/sbin
 # sudo cp share/check_argc0_lsm.service /etc/systemd/system/
 
 # After that you can enable the service with

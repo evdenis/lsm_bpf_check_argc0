@@ -4,7 +4,7 @@ Description=LSM BPF protection for argc == 0 execs
 [Service]
 Type=simple
 Restart=on-failure
-ExecStart=/usr/local/bin/load_check_argc0_lsm
+ExecStart=DESTDIR/sbin/load_check_argc0_lsm
 
 [Install]
 WantedBy=multi-user.target

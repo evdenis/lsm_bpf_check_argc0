@@ -13,7 +13,7 @@ load_check_argc0_lsm: check_argc0_lsm.h load_check_argc0_lsm.c
 	clang -lbpf $@.c -o $@
 
 install: load_check_argc0_lsm
-	sudo cp load_check_argc0_lsm /usr/local/bin/load_check_argc0_lsm
+	install load_check_argc0_lsm ${DESTDIR}/sbin/load_check_argc0_lsm
 
 clean:
 	rm -f load_check_argc0_lsm check_argc0_lsm.h check_argc0_lsm.o vmlinux.h

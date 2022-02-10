@@ -3,3 +3,4 @@ check_argc0_lsm.h
 *.o
 trigger
 load_check_argc0_lsm
+check_argc0_lsm.service
