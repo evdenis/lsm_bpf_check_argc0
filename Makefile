@@ -1,19 +1,9 @@
-default: load_check_argc0_lsm trigger
+TOPTARGETS := all install clean
 
-vmlinux.h:
-	bpftool btf dump file /sys/kernel/btf/vmlinux format c > $@
+SUBDIRS := src share test
 
-check_argc0_lsm.o: vmlinux.h check_argc0_lsm.c
-	clang -g -O2 -c -target bpf check_argc0_lsm.c -o $@
+$(TOPTARGETS): $(SUBDIRS)
+$(SUBDIRS):
+	$(MAKE) --no-print-directory -C $@ $(MAKECMDGOALS)
 
-check_argc0_lsm.h: check_argc0_lsm.o
-	bpftool gen skeleton $< > $@
-
-load_check_argc0_lsm: check_argc0_lsm.h load_check_argc0_lsm.c
-	clang -lbpf $@.c -o $@
-
-trigger: trigger.c
-	clang -w $@.c -o $@
-
-clean:
-	rm -f trigger load_check_argc0_lsm check_argc0_lsm.h check_argc0_lsm.o vmlinux.h
+.PHONY: $(TOPTARGETS) $(SUBDIRS)

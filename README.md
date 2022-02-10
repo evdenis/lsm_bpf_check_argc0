@@ -6,26 +6,6 @@ Simple LSM BPF program to prevent program executions with argc == 0, e.g. pwnkit
 It does nothing more than a simple check that all exec\*() system calls are called with argc >= 1.
 The check is based on Ariadne Conill's [patch](https://lore.kernel.org/all/20220127000724.15106-1-ariadne@dereferenced.org/).
 
-## How to use
-
-Linux kernel >= 5.8 required for BPF LSM (5.7) and BPF rignbuf (5.8).
-
-```
-# The program will start, attach an LSM BPF, and monitor the log
-$ sudo ./load_check_argc0_lsm
-TIME     PID     PROCESS          CALLING
-12:59:21 85689   trigger          /usr/bin/pkexec
-```
-
-One can use the trigger program to test that everything works:
-```
-$ strace ./trigger
-...
-execve("/usr/bin/pkexec", NULL, NULL)   = -1 EINVAL (Invalid argument)
-```
-
-See install section for systemd service file.
-
 ## How to build
 
 ```
@@ -39,8 +19,12 @@ $ make
 
 Run:
 ```
-$ sudo cp load_check_argc0_lsm /usr/local/bin
-$ sudo cp check_argc0_lsm.service /etc/systemd/system/
+$ sudo make install
+# will execute following commands
+# sudo cp src/load_check_argc0_lsm /usr/local/bin
+# sudo cp share/check_argc0_lsm.service /etc/systemd/system/
+
+# After that you can enable the service with
 $ sudo systemctl daemon-reload
 $ sudo systemctl enable check_argc0_lsm.service
 $ sudo systemctl start check_argc0_lsm.service
@@ -48,7 +32,7 @@ $ sudo systemctl start check_argc0_lsm.service
 
 Test:
 ```
-$ strace ./trigger
+$ strace ./test/trigger
 ...
 execve("/usr/bin/pkexec", NULL, NULL)   = -1 EINVAL (Invalid argument)
 
@@ -58,3 +42,20 @@ Feb 10 13:27:13 purple load_check_argc0_lsm[89177]: TIME     PID     PROCESS    
 Feb 10 13:27:13 purple load_check_argc0_lsm[89177]: 13:27:13 89194   trigger          /usr/bin/pkexec
 ```
 
+## How to test
+
+Linux kernel >= 5.8 required for BPF LSM (5.7) and BPF rignbuf (5.8).
+
+```
+# The program will start, attach an LSM BPF, and monitor the log
+$ sudo ./src/load_check_argc0_lsm
+TIME     PID     PROCESS          CALLING
+12:59:21 85689   trigger          /usr/bin/pkexec
+```
+
+One can use the trigger program to test that everything works:
+```
+$ strace ./test/trigger
+...
+execve("/usr/bin/pkexec", NULL, NULL)   = -1 EINVAL (Invalid argument)
+```
