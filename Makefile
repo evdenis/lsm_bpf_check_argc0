@@ -12,7 +12,7 @@ check_argc0_lsm.h: check_argc0_lsm.o
 load_check_argc0_lsm: check_argc0_lsm.h load_check_argc0_lsm.c
 	clang -lbpf $@.c -o $@
 
-trigger:
+trigger: trigger.c
 	clang -w $@.c -o $@
 
 clean:
