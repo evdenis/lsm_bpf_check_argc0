@@ -6,6 +6,12 @@ Simple LSM BPF program to prevent program executions with argc == 0, e.g. pwnkit
 It does nothing more than a simple check that all exec\*() system calls are called with argc >= 1.
 The check is based on Ariadne Conill's [patch](https://lore.kernel.org/all/20220127000724.15106-1-ariadne@dereferenced.org/).
 
+<p align="center">
+  <a href="https://youtu.be/rRBaurE7rUM">
+    <img src="https://img.youtube.com/vi/rRBaurE7rUM/0.jpg" alt="LSM BPF demonstration"/>
+  </a>
+</p>
+
 ## How to build
 
 ```
