@@ -16,3 +16,5 @@ jobs:
           fetch-depth: 0
       - name: Build
         run: make
+      - name: Install
+        run: sudo make DESTDIR=/usr install
