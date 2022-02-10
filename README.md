@@ -1,3 +1,5 @@
+![BUILD](https://github.com/evdenis/lsm_bpf_check_argc0/actions/workflows/build.yml/badge.svg)
+
 # Check ARGC0 LSM BPF
 
 Simple LSM BPF program to prevent program executions with argc == 0, e.g. pwnkit (CVE-2021-4034).

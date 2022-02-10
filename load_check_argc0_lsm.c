@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <sys/resource.h>
 #include <time.h>
+#include <errno.h>
 #include "common.h"
 
 #define check_fail_handle_goto(cond, err_stmt, label, fmt, ...) ({ \
