@@ -1,13 +1,13 @@
 default: trigger test argc_zero
 
 trigger: trigger.c
-	clang -w $@.c -o $@
+	clang -w -static $@.c -o $@
 
 test: test.c
-	clang $@.c -o $@
+	clang -static $@.c -o $@
 
 argc_zero: argc_zero.c
-	clang $@.c -o $@
+	clang -static $@.c -o $@
 
 install:
 
