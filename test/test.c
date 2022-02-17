@@ -2,23 +2,22 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <linux/limits.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[])
 {
-	char self_path[PATH_MAX];
-	char *const argp[] = {
-		NULL
-	};
-	char *const envp[] = {
-		NULL
-	};
+	if (!argc) {
+		fprintf(stderr, "FAIL (argc == 0)\n");
+		return 1;
+	}
 
-	readlink("/proc/self/exe", self_path, sizeof(self_path));
-	strcpy(rindex(self_path, '/') + 1, "argc_zero");
+	if (*envp && !strcmp(*envp, "ARGC0_STOP")) {
+		printf("OK (argc != 0)\n");
+		return 0;
+	}
 
-	execve(self_path, argp, envp);
-	fprintf(stderr, "%s\n", strerror(errno));
+	execve(argv[0], (char *const []){NULL},
+			(char *const []){"ARGC0_STOP", NULL});
+	fprintf(stderr, "OK (execve failed: %s)\n", strerror(errno));
 
 	return 0;
 }

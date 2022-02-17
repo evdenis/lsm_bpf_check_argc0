@@ -1,4 +1,4 @@
-default: trigger test argc_zero
+default: trigger test
 
 trigger: trigger.c
 	clang -w -static $@.c -o $@
@@ -6,10 +6,7 @@ trigger: trigger.c
 test: test.c
 	clang -static $@.c -o $@
 
-argc_zero: argc_zero.c
-	clang -static $@.c -o $@
-
 install:
 
 clean:
-	rm -f trigger argc_zero test
+	rm -f trigger test
